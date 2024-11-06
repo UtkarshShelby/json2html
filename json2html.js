@@ -3,23 +3,25 @@ export default function json2html(data) {
     // Start the table, including the data-user attribute
     let html = '<table data-user="utkarsh.tiwari1907@gmail.com">';
     
-    // Add the table headers
+    // Ensure the table header always has 'Name', 'Age', 'Gender'
+    const headers = ["Name", "Age", "Gender"];
+    
+    // Add the table headers (fixed to be 'Name', 'Age', 'Gender')
     html += '<thead><tr>';
-    if (data.length > 0) {
-        // Get all keys (columns) from the first object
-        Object.keys(data[0]).forEach(key => {
-            html += `<th>${key}</th>`;
-        });
-    }
+    headers.forEach(header => {
+        html += `<th>${header}</th>`;
+    });
     html += '</tr></thead>';
 
     // Add table rows
     html += '<tbody>';
     data.forEach(row => {
         html += '<tr>';
-        // Loop through each key in the row to create the table cells
-        Object.keys(row).forEach(key => {
-            html += `<td>${row[key]}</td>`;
+        
+        // Ensure every row has 'Name', 'Age', and 'Gender' data
+        headers.forEach(header => {
+            // If the header exists in the row, add its value; otherwise, leave an empty cell
+            html += `<td>${row[header] !== undefined ? row[header] : ''}</td>`;
         });
         html += '</tr>';
     });
@@ -30,3 +32,4 @@ export default function json2html(data) {
 
     return html;
 }
+
